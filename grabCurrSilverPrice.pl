@@ -19,10 +19,11 @@ $coins{'american silver eagle'}{'ps'} = ".999"; # grams
 $coins{'washington quarter'}{'weight'} = "6.25"; # grams
 $coins{'washington quarter'}{'ps'} = ".90"; # grams
 
-if ( $content =~ /Coin value calculations use the \d\d?:\d\d (A|P)M EDT silver price for (\w+ \d\d?, \d\d\d\d): <br><b>Silver<\/b> \$(\d\d?.\d\d)\/oz/ )
+#if ( $content =~ /Coin value calculations use the \d+:\d+ (A|P)M EDT silver price for (\w+ \d+, \d\d\d\d): <br><b>Silver<\/b> \$(\d+.\d+)\/oz/ )
+if ( $content =~ /silver price for (\w+ \d+, \d\d\d\d): <br><b>Silver<\/b> \$(\d+.\d+)\/oz/ )
 {
-	my $Silver = $3;
-	my $date   = $2;
+	my $Silver = $2;
+	my $date   = $1;
 
 	print "Silver is $Silver on $date\n";
         for my $type ( keys %coins )
