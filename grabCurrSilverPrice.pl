@@ -53,7 +53,6 @@ $coins{'queens diamond jubilee'}{'weight'} = "7.96";
 my $valuation = 0;
 my $facevalue = 0;
 
-#if ( $content =~ /Coin value calculations use the \d+:\d+ (A|P)M EDT silver price for (\w+ \d+, \d\d\d\d): <br><b>Silver<\/b> \$(\d+.\d+)\/oz/ )
 if ( $content =~ /silver price for (\w+ \d+, \d\d\d\d): <br><b>Silver<\/b> \$(\d+.\d+)\/oz/ )
 {
 	my $Silver = $2;
