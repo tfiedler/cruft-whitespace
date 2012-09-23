@@ -37,8 +37,10 @@ else
 my $content = get("http://www.coinflation.com/silver_coin_values.html");
 die "Couldn't get it!" unless defined $content;
 
+# Conversion factor from grams to ounces
 my $cf='.0321507466';
 
+# These are toataled values face and overall silver value
 my $valuation = 0;
 my $facevalue = 0;
 
@@ -46,8 +48,24 @@ if ( $content =~ /silver price for (\w+ \d+, \d\d\d\d): <br><b>Silver<\/b> \$(\d
 {
 	my $Silver = $2;
 	my $date   = $1;
-         
-        my $topline = sprintf("%-25s %24s", "Silver: \$${Silver}", $date);
+
+        # A shortcut, Ill fix it later.
+	my $last = qx#cat ./LASTPRICE#;
+	my $stat = "";
+
+	chomp ($last);
+	if ( $last && $last =~ /^\d+\.\d+$/ )
+	{
+		$stat = "(-)" if ( $last > $Silver ) ;
+		$stat = "(+)" if ( $last < $Silver ) ;
+	}
+		
+
+        open my $_fh, '+>', "./LASTPRICE" or die "Unable to open LASTPRICE: $!\n";
+	print $_fh "$Silver";
+	close ($_fh);
+	
+        my $topline = sprintf("%-25s %24s", "Silver: \$${Silver}${stat}", $date);
         print "\n$topline\n"; 
 	#print "Silver: \$${Silver}\t$date\n";
         print "=" x 50 . "\n";
@@ -76,7 +94,6 @@ sub ConvertTo
 {
 	my $ORIGIN = shift;
 	my $TARGET = shift;
-
         return 1 if $ORIGIN = $TARGET;
 
 	my $URL = "http://themoneyconverter.com/${ORIGIN}/${TARGET}.aspx";
@@ -85,9 +102,11 @@ sub ConvertTo
 	die "Couldn't get it!" unless defined $get;
 
 	my $toUSD;
+
 	if ( $get =~ /Latest Exchange Rates: 1 \w+ \w+ = (\d\.\d+) United States Dollar/ )
 	{
-        	$toUSD = $1;
+       		$toUSD = $1;
 	}
+
 	return $toUSD;
 }
