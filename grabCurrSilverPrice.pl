@@ -99,7 +99,7 @@ sub ConvertTo
 	my $URL = "http://themoneyconverter.com/${ORIGIN}/${TARGET}.aspx";
 
 	my $get = get($URL);
-	die "Couldn't get it!" unless defined $get;
+	die "Couldn't convert $ORIGIN to $TARGET!" unless defined $get;
 
 	my $toUSD;
 
