@@ -1,0 +1,45 @@
+#!/usr/bin/perl
+# $Id: pad,v 1.4 2009/06/03 12:52:45 tfiedler Exp $
+# Pad fixed length records with paces up to n.
+# Do nothing with records longer than n.
+
+use strict;
+use warnings;
+
+# Need to pass n.
+my $pad = $ARGV[0] || -1;
+
+# Pad with padding ~ normally a space.
+my $filler = qq| |;
+
+# Must be a positive integer.
+unless ( $pad =~ /^[0-9]+$/ && $pad > 0 )
+{
+    print "Usage: pad n\n";
+    print "Where n is the added line length.\n";
+    print "\nThis programs pad's the end of a line filling it with spaces.\n";
+    print "NOTE: Lines over the specified line length are not formatted.\n";
+    exit 1;
+}
+
+# Start working on the current stream
+while (<STDIN>)
+{
+    # remove training newline
+    chomp;
+
+    # get the length of each line
+    my $len = length($_);
+
+    # if the record is longer than the pad
+    # do nothing and dump otherwise 
+    # add padding and dump
+    print STDOUT ( $len >= $pad ) 
+	? $_ . "\n" 
+	: $_ . $filler x ( $pad - $len ) ."\n";
+}
+
+# $Log: pad,v $
+# Revision 1.4  2009/06/03 12:52:45  tfiedler
+# fixed some typos and comments
+#
