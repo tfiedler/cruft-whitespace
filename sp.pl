@@ -1,5 +1,6 @@
 #!/usr/bin/perl 
-
+# Ted Fiedler <fiedlert@gmail.com>
+# sp.pl - service "ping"
 use strict;
 use IO::Socket::INET;
 use Getopt::Long;
