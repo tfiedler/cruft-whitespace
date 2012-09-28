@@ -13,7 +13,7 @@ my $stuff = GetOptions ( "url=s"    =>   \ my $url,
 			 "form=i"   =>   \ my $form,
 			 "expect=s" =>   \ my $expected, );
 
-# Adminittedly this is not elegant. 
+# This is not elegant. 
 usage('url')      unless ($url);
 usage('user')     unless ($user);
 usage('password') unless ($pass);

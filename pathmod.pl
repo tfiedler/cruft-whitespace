@@ -6,9 +6,7 @@ use strict;
 use warnings;
 $|++;
 
-#for (<STDIN>) {
-  if ( /\B\/(xyz)(?!\/more_crap)/g ) {
-    s/$1(?!\/xyz)/xyz\/more_crap/g ;
-  }
-#  print;
-#}
+if ( /\B\/(xyz)(?!\/more_crap)/g ) 
+{
+  s/$1(?!\/xyz)/xyz\/more_crap/g ;
+}
