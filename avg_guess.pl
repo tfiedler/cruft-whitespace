@@ -3,10 +3,10 @@ use strict;
 my (@avgs, $x);
 my $seed;
 my $score;
-for ($x=0; $x<100; $x++)
+for ($x=0; $x<1000; $x++)
 {
     my $low = 1;
-    my $high = 100;
+    my $high = 1000;
     my @range=($low .. $high);
     my $rand=$range[rand(@range)];     # <---
     my $seed=int(rand($high));
