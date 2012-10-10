@@ -17,6 +17,7 @@ while (<DATA>)
 
 print "thou $col1[rand @col1] $col2[rand @col2] $col3[rand @col3]\n";
 
+# DATA was pulled from http://www.pangloss.com/seidel/shake_rule.html
 
 __DATA__
 artless             base-court          apple-john
