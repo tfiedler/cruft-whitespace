@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+# My kids got some silver coins and wanted to know how much they were worth. 
+# 
+
 use strict;
 use warnings;
 
