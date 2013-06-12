@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 # "grep" through a log file for a field and report the occurrences of that field.
+# I got bored.
+# because you can use awk '{print $<field #>}' <file> | uniq -c
+# which is probably the best way.
 # Ted Fiedler <Fiedlert@gmail.com>
 
 use strict;
