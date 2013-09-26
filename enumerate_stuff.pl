@@ -9,69 +9,42 @@ use strict;
 use warnings;
 use 5.010;
 use Getopt::Long;
-use Data::Dumper;
 
 my $p = \&pad;
 my $p2 = $p->(2);
 my $p4 = $p->(4);
 
 my $OPTS = GetOptions (
-    "file=s"    => \my $file,
+    "file=s"    => \ my $file,
     "key=s"     => \ my $key,
     "results=i" => \ my $results,
-    "sample"  => \ my $sample,
+    "sample"    => \ my $sample,
     "usage"     => \ my $usage, );
 
 
 if ( $usage ) { usage(); exit 0; }
 
+$results = $results || 10;
+$key     = $key     || 'null';
+
 my %hash;
 
-if ( -f "$file" )
+open my $_f, "$file" or die "unable to open $file: $!\n";
+
+while (<$_f>)
 {
-    open my $_f, "$file" or die "unable to open $file: $!\n";
-    $results = ( ! $results ) ? 10 : $results;
-    if ( $sample )
-    {
-        while (<$_f>)
-        {
-            if ( $. <= $results ) {print}
-            else {last}
-        }
-    }
-
-    if ( $key =~ /^.+$/)
-    {
-        while (<$_f>)
-        {
-            my @inspect = split /\s+/;
-            #print Dumper @inspect;
-            if ( defined $inspect[$key] )
-            {
-                #say "I saw $inspect[$key] at location $key";
-                $hash{$inspect[$key]}++;
-            }
-            else
-            {
-                #say "null at location $key";
-                $hash{'_null_'}++;
-            }
-        }
-    }
-
-    #else {
-    #    say "WizBang!"
-    #}
+    print if ( $sample  and $. <= 10 );
+    next unless ( $key =~ /^\d+$/);
+    my @inspect = split /\s+/;
+    defined $inspect[$key] and $hash{$inspect[$key]}++;
 }
 
-
-#print Dumper %hash;
-
-my $count=0;
+my $count=1;
 foreach my $key ( sort { $hash{$b} <=> $hash{$a} } ( keys %hash ) )
 {
     say "$hash{$key} $key";
-    last if ( $count++ > $results );
+    $count++;
+    last if ( $count > $results );
 }
 
 #########
