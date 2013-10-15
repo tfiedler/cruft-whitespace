@@ -2,18 +2,24 @@
 use strict;
 use warnings;
 use Getopt::Long;
-
+$|++;
 my $opts = GetOptions( "s" => \my $silent,
     "c" => \my $continuous,
     "limit=i" => \my $limit, );
 
 my $cnt = 1;
 
+my $guessTracker = 0;
+
 while (1) {
-    main();
+    my $guesses = main();
     last unless ( $continuous or $limit );
     if ( defined $limit ) {
-        last if ($cnt == $limit);
+        $guessTracker = $guessTracker + $guesses;
+        if ($cnt == $limit) {
+            print "Avgerage guess was ". $guessTracker / $limit . "\n";
+            last;
+        }
         $cnt++;
     }
 }
@@ -41,12 +47,14 @@ sub main {
         }
         elsif ( $seed = $rand ) {
             print "you guessed $rand in $count tries\n";
-            if ( ! defined $silent ) { print "seed = $seed  rand = $rand \n"; }
-            last;
+            if ( ! defined $silent ) {
+                print "seed = $seed  rand = $rand \n";
+            }
+            return $count;
         }
         else {
             print "bork\n";
-            last;
+            return -1;
         }
 
         if ( ! defined $silent ) { print "$seed is too $stat\n"; }
@@ -61,3 +69,8 @@ sub getRand
     my @range=($l .. $h);
     return $range[rand(@range)];
 }
+
+# Some fun ways to run this
+# while (:); do ./range.pl -s -l 10; done
+# while (:); do ./range.pl -c; done # but only for consuming resources...
+# ./range -s -l 100000
