@@ -1,37 +1,63 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Getopt::Long;
 
-my $low = 1;
-my $high = 100;
-my @range=($low .. $high);
-my $rand=$range[rand(@range)];     # <---
-my $seed=$range[rand(@range)];
-my $count=1;
-my $lastguess;
-while ( $seed != $rand )
-{
-    undef @range if ( $ count > 1);
-    @range=($low .. $high);
-    $lastguess = $seed;
-    $seed = $range[rand(@range)];   # <---
-    if ( $seed < $rand )
-    {
-        print "You're too low - $seed (last guess = $lastguess)\n";
-        $low=$seed+1;
-        $count++;
+my $opts = GetOptions( "s" => \my $silent,
+    "c" => \my $continuous,
+    "limit=i" => \my $limit, );
+
+my $cnt = 1;
+
+while (1) {
+    main();
+    last unless ( $continuous or $limit );
+    if ( defined $limit ) {
+        last if ($cnt == $limit);
+        $cnt++;
     }
-    elsif ( $seed > $rand )
+}
+
+sub main {
+    my $initRange = getRand(100, 100000);
+
+    my $low = 1;
+    my $high = $initRange;
+    my $rand=getRand($low, $high);
+    my $seed=-1;
+    my $count=1;
+
+    while ( $seed != $rand )
     {
-        print "you're too high - $seed (last guess = $lastguess)\n";
-        $high=$seed-1;
+        $seed = getRand($low, $high);
+        my $stat;
+        if ( $seed < $rand ) {
+            $stat='too low';
+            $low=$seed+1;
+        }
+        elsif ( $seed > $rand ) {
+            $stat='too high';
+            $high=$seed-1;
+        }
+        elsif ( $seed = $rand ) {
+            print "you guessed $rand in $count tries\n";
+            if ( ! defined $silent ) { print "seed = $seed  rand = $rand \n"; }
+            last;
+        }
+        else {
+            print "bork\n";
+            last;
+        }
+
+        if ( ! defined $silent ) { print "$seed is too $stat\n"; }
         $count++;
     }
 }
 
-print "you got it in $count tries\n";
-print "seed = $seed  rand = $rand ( last guess = $lastguess )\n";
-
-print "\nPress enter to quit\n";
-exit if <STDIN>;
-
+sub getRand
+{
+    my $l = shift;
+    my $h = shift;
+    my @range=($l .. $h);
+    return $range[rand(@range)];
+}
