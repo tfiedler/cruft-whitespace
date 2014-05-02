@@ -1,0 +1,73 @@
+mkdir -p ~ vagrant/vmname
+cd ~/vagrant/vmname
+vagrant init hashicorp/precise32
+             chef/centos-6.5
+
+
+
+vim Vagrantfile
+
+Vagrant.configure(2) do |config|
+    config.vm.box = "hashicorp/precise64"
+    #config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
+    config.vm.network "forwarded_port", guest: 80, host: 8080
+    ##config.vm.network "private_network", ip: "192.168.50.2"
+    #- or - 
+    ##config.vm.network "public_network" -> Will Get an address from YOUR NETWORKS DHCP scope
+end
+
+
+List of boxes
+* vagrantcloud.com
+
+vagrant
+    status
+    halt
+    up
+    reload
+    detstoy
+    suspend
+    resume
+    provision
+
+vagrant box list
+vagrant box remove boxname
+vagrant box outdated --global
+vagrant box update
+
+python -mSimpleHTTPServer
+
+####chef solo####
+myproject/
+    cookbooks/
+        users/
+        apache/
+    roles/
+        base.rb
+
+
+config.vm.provision "chef_solo" do|chef|
+    chef.roles_path "roles"
+    chef.add_role "base"
+end
+
+
+https://www.docker.io/
+
+http://www.packer.io/
+ - Can create ami's
+ - can create box files
+
+VM image with some special properties
+    ssh server
+    vagrant user with ssh key and sudo access
+    provisioning software
+    guest additions / vmware toold
+Metadata
+    vagrant package command
+
+download to packer
+unzip to ~/packer
+Mac Homebrew - binary tap - ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    brew tap homebrew/binary
+    brew install packer

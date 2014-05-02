@@ -3,7 +3,7 @@ use strict;
 my (@avgs, $x);
 my $seed;
 my $score;
-for ($x=0; $x<1000; $x++)
+for ($x=0; $x<10000; $x++)
 {
     my $low = 1;
     my $high = 1000;
