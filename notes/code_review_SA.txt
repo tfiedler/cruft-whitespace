@@ -1,0 +1,10 @@
+
+puppet-lint
+puppet parser validate
+
+git.openstack.com
+
+nodepool
+
+
+
