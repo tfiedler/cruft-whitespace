@@ -1,10 +1,15 @@
 
-puppet-lint
-puppet parser validate
-
-git.openstack.com
-
+* virtualization
 nodepool
 
+* puppet
+puppet-lint
+puppet parser validate
+puppetboard
 
+* cloudstack specific
+git.openstack.com
+ci.openstack.com - docs
 
+* stuff
+http://etherpad.org/
