@@ -1,0 +1,9 @@
+Evolution of a Practice
+* craft stage
+* commercial stage
+* Engineering Stage
+
+fpm - abstraction alyer for packaging
+
+https://github.com/jordansissel/fpm
+
