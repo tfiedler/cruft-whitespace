@@ -7,3 +7,12 @@ fpm - abstraction alyer for packaging
 
 https://github.com/jordansissel/fpm
 
+
+Write tests first, prove that they fail, write code to make them pass
+
+nagios plugins -> check_dns
+
+bats - bash automated testing systemA
+https://github.com/sstephenson/bats
+
+Travis, Team City -> Like Jenkins
