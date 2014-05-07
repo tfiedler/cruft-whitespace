@@ -10,3 +10,12 @@ vagrant up
 # Wait...
 vagrant status
 
+Using this method I can reliably acheive true RR load balancing.
+
+<code>
+for i in `seq 1 10000` ; do curl 192.168.50.2 >> results.txt; done
+
+sort results.txt | uniq -c
+5000 Server created: Wed May  7 11:37:13 UTC 2014
+5000 Server created: Wed May  7 11:38:57 UTC 2014
+</code>
