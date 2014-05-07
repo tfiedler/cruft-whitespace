@@ -1,0 +1,15 @@
+* corosync
+* pacemaker
+* conga
+
+
+## Power Fencing
+* network power switch
+* remote managment access
+* ipmi
+* virtualization platform support
+
+fence_vmware
+fence_vmware_soap
+
+UDP Unicast
