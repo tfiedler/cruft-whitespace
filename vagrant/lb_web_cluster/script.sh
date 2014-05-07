@@ -41,5 +41,8 @@ EOF
 
 chkconfig iptables on
 
+# If I don't reboot this hangs
+# Still searching for a better way...
 reboot
+
 exit 0

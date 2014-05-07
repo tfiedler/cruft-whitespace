@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-yum -y install httpd
+yum -y install httpd lsof 
 service httpd start
 
 sleep 5
