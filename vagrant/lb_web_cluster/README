@@ -1,0 +1,12 @@
+Creates 3 VMs 1 load balancer - uses IPTables
+              2 web servers
+
+after creation you shoould be able to browse to 192.168.50.2 which will load balance between .20 and .30
+
+SO... Dowload vagrant. Drop these files in a directory
+
+cd into <directory>
+vagrant up
+# Wait...
+vagrant status
+
