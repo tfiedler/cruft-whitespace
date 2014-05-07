@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      slave.vm.box = "chef/centos-6.5"
      slave.vm.host_name = "web-#{i}"
      slave.vm.network "private_network", ip: "192.168.50.#{i}0"
-     slave.vm.provision "shell", path: "web.sh"
+     slave.vm.provision "shell", path: "web.sh", args: "#{i}"
    end
   end
 

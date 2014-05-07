@@ -2,7 +2,6 @@
 set -x
 
 echo "1" > /proc/sys/net/ipv4/ip_forward # NOW
-echo 'echo "1" > /proc/sys/net/ipv4/ip_forward' >> /etc/rc.local # AND FOREVER
 
 IPT="iptables" 
 
@@ -48,10 +47,3 @@ ${IPT} -A INPUT  -m limit --limit 5/s --limit burst 10 -p icmp -m icmp --icmp-ty
 ${IPT} -A INPUT -m state --state NEW -p tcp -m tcp --dport 22 -j ACCEPT
 ${IPT} -A INPUT -j DROP
 
-service iptables save
-chkconfig iptables on
-
-yum -y install lsof iptstate
-
-reboot
-exit 0

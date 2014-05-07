@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-yum -y install httpd lsof 
+NUM=$1
+yum -y install httpd lsof
 service httpd start
 
 sleep 5
-echo "Server created: $(date)"  > /var/www/html/index.html
+echo "WEB${1}"  > /var/www/html/index.html
