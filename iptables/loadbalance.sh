@@ -34,10 +34,11 @@ ${IPT} -t nat -A PREROUTING -m state --state NEW -m statistic --mode nth --every
 ${IPT} -t nat -A POSTROUTING -j snat
 ${IPT} -t nat -A snat -j SNAT --to-source ${SOURCE1}
 
-${IPT} -t nat -A web1 -j LOG --log-prefix "dnat-to-${DESTALIAS1}: " --log-level 6
-${IPT} -t nat -A web1 -p tcp -m tcp --dport ${LBP1} -j DNAT --to-destination ${DEST1}:${LBP1}
-${IPT} -t nat -A web2 -j LOG --log-prefix "dnat-to-${DESTALIAS2}: " --log-level 6
-${IPT} -t nat -A web2 -p tcp -m tcp --dport ${LBP1} -j DNAT --to-destination ${DEST2}:${LBP1}
+${IPT} -t nat -A ${DESTALIAS1} -j LOG --log-prefix "dnat-to-${DESTALIAS1}: " --log-level 6
+${IPT} -t nat -A ${DESTALIAS1} -p tcp -m tcp --dport ${LBP1} -j DNAT --to-destination ${DEST1}:${LBP1}
+
+${IPT} -t nat -A ${DESTALIAS2} -j LOG --log-prefix "dnat-to-${DESTALIAS2}: " --log-level 6
+${IPT} -t nat -A ${DESTALIAS2} -p tcp -m tcp --dport ${LBP1} -j DNAT --to-destination ${DEST2}:${LBP1}
 
 
 ${IPT} -A INPUT -p tcp -m state --state NEW -m tcp --dport ${LBP1} -j LOG --log-prefix "LB_${LBP1}_FAILED: "
