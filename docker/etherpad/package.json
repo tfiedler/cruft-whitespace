@@ -1,7 +1,7 @@
 {
   "name": "docker-centos-etherpad",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node.js Etherpad on Centos",
   "Author": "Ted Fiedler <fiedlert@gmail.com>,
 }

@@ -1,9 +1,7 @@
 to build
 
-sudo docker build -t tfiedler/etherpad .
-
+sudo docker build --no-cache -t tfiedler/etherpad:latest tfiedler/etherpad 
 
 to run
 
-
-sudo docker run -p 9001:9001 -d tfiedler/etherpad
+sudo docker run -p 9001:9001 --name etherpad -d tfiedler/etherpad:latest
